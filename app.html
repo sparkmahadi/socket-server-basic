@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Helloo world</h2>
+    <input type="text" name="name" id="name">
+    <input type="text" name="phone" id="phone">
+    <button onclick="handleSend()">Send</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+        const socket = io();
+        socket.on("message", (data)=>{
+            console.log(data);
+        })
+
+        socket.send("hello from client side");
+
+        const handleSend = ()=>{
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            // console.log(name, phone);
+            // socket.send({phone, name});
+            socket.emit("testEvent", {phone, name} );
+        }
+    </script>
+</body>
+</html>
